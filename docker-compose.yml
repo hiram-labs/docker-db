@@ -1,0 +1,54 @@
+version: "3.1"
+
+services:
+  postgres:
+    build:
+      context: ./images
+      dockerfile: postgres.dockerfile
+    image: hiramlabs/postgres
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - "9000:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./dump:/var/backups
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - 9001:8080
+
+  influxdb:
+    build:
+      context: ./images
+      dockerfile: influxdb.dockerfile
+    image: hiramlabs/influxdb
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "9002:8086"
+    volumes:
+      - influx_data:/var/lib/influxdb2
+      - ./dump:/var/backups
+
+  neo4j:
+    build:
+      context: ./images
+      dockerfile: neo4j.dockerfile
+    image: hiramlabs/neo4j
+    container_name: neo4j
+    restart: unless-stopped
+    ports:
+      - "9003:7687"
+      - "9004:7474"
+    volumes:
+      - neo4j_data:/data
+      - ./dump:/backups
+
+volumes:
+  pg_data:
+  influx_data:
+  neo4j_data:
