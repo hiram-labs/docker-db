@@ -186,6 +186,37 @@ neo4j-admin dump --database=[ database_name ] --to=/var/backups/graph.dump --ver
 
 ---
 
+### Redis cli
+
+Redis has the cli which uses the `redis-cli` command to manage the instance of the db. Run command below to get a shell into the container.
+
+```
+yarn rdb:client
+```
+
+---
+
+## Restore a redis dump
+
+Place the dump file inside `./dump` as mentioned before.
+
+```
+yarn rdb:restore
+```
+
+---
+
+### Dump a redis db
+
+NB this replaces corresponding matches in `./dump`
+
+```
+docker exec -it redis /bin/bash --login
+cp /var/lib/redis/dump.rdb /var/backups/redis.dump
+```
+
+---
+
 ### Credentials for local development.
 
 POSTGRES
@@ -211,3 +242,8 @@ NEO4J
 - port: 9003
 - username: neo4j
 - password: secret
+
+REDIS
+
+- address/host: 127.0.0.1
+- port: 9004
