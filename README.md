@@ -211,7 +211,7 @@ yarn rdb:restore
 NB this replaces corresponding matches in `./dump`
 
 ```
-docker exec -it redis /bin/bash --login
+docker exec -it redis /bin/sh
 cp /var/lib/redis/dump.rdb /var/backups/redis.dump
 ```
 

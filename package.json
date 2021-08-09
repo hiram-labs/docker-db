@@ -13,7 +13,7 @@
     "n4j:restore": "docker exec -it neo4j /bin/bash --login /root/.load_backups",
     "n4j:client": "docker exec -it neo4j cypher-shell -u neo4j -p secret",
     "rdb:restore": "docker exec -it redis /bin/bash --login /root/.load_backups",
-    "rdb:client": "docker exec -it postgres redis-cli",
+    "rdb:client": "docker exec -it redis redis-cli",
     "preinstall": "npx only-allow yarn"
   }
 }

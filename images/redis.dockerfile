@@ -1,9 +1,8 @@
 FROM redis:alpine3.14
 
 # sets cmds to run when influx instance is first initialise during docker compose
-RUN printf "#!/bin/bash\n\
-set -e\n\
-# insert redis.config info here\n" \
+RUN mkdir -p /usr/local/etc/redis
+RUN printf "# insert redis.config info here\n" \
     >>/usr/local/etc/redis/redis.conf
 
 # set cmds to run on yarn restore
