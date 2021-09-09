@@ -9,7 +9,7 @@ RUN printf "# insert redis.config info here\n" \
 RUN printf "#!/bin/bash\n\
 set +e\n\
 cat redis.dump | redis-cli --pipe\
-echo \"Finished loading influxdb backups\"\n\
+echo \"Finished loading redis backups\"\n\
 exit 0" \
     >>/root/.load_backups
 

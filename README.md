@@ -3,6 +3,7 @@
 1. postgres instance.
 2. influxdb instance.
 3. neo4j instance.
+4. redis
 
 ---
 
