@@ -1,6 +1,15 @@
 version: "3.1"
 
 services:
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+#    ports:
+#      - 9000:8080
+    networks:
+      - database
+
   postgres:
     build:
       context: ./images
@@ -8,18 +17,13 @@ services:
     image: hiramlabs/postgres
     container_name: postgres
     restart: unless-stopped
-    ports:
-      - 9000:5432
+#    ports:
+#      - 9001:5432
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./dump:/var/backups
-
-  adminer:
-    image: adminer
-    container_name: adminer
-    restart: unless-stopped
-    ports:
-      - 9001:8080
+    networks:
+      - database
 
   influxdb:
     build:
@@ -28,11 +32,13 @@ services:
     image: hiramlabs/influxdb
     container_name: influxdb
     restart: unless-stopped
-    ports:
-      - 9002:8086
+#    ports:
+#      - 9002:8086
     volumes:
       - influx_data:/var/lib/influxdb2
       - ./dump:/var/backups
+    networks:
+      - database
 
   neo4j:
     build:
@@ -41,12 +47,14 @@ services:
     image: hiramlabs/neo4j
     container_name: neo4j
     restart: unless-stopped
-    ports:
-      - 9003:7687
-      - 9004:7474
+#    ports:
+#      - 9003:7687
+#      - 9004:7474
     volumes:
       - neo4j_data:/data
       - ./dump:/backups
+    networks:
+      - database
 
   redis:
     build:
@@ -55,12 +63,19 @@ services:
     image: hiramlabs/redis
     container_name: redis
     restart: unless-stopped
-    ports:
-      - 9004:6379
+#    ports:
+#      - 9004:6379
     volumes:
       - ./dump:/backups
+    networks:
+      - database
 
 volumes:
   pg_data:
   influx_data:
   neo4j_data:
+
+networks:
+  database:
+    external:
+      name: database
