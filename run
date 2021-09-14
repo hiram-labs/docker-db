@@ -1,0 +1,58 @@
+#!/bin/bash
+
+__ARG=$1
+
+__START_DOCKER_COMPOSE="start"
+__STOP_DOCKER_COMPOSE="stop"
+
+__START_POSTGRES_SHELL="pg:shell"
+__START_INFLUXDB_SHELL="idb:shell"
+__START_NEO4J_SHELL="n4j:shell"
+__START_REDIS_SHELL="rdb:shell"
+
+__POSTGRES_DUMP_RESTORE="pg:restore"
+__INFLUXDB_DUMP_RESTORE="idb:restore"
+__NEO4J_DUMP_RESTORE="n4j:restore"
+__REDIS_DUMP_RESTORE="rdb:restore"
+
+if [[ "$__ARG" == "$__START_DOCKER_COMPOSE" ]]; then
+    shift
+    docker-compose up -d "$@"
+fi
+
+if [[ "$__ARG" == "$__STOP_DOCKER_COMPOSE" ]]; then
+    shift
+    docker-compose down "$@"
+fi
+
+if [[ "$__ARG" == "$__START_POSTGRES_SHELL" ]]; then
+    docker exec -it postgres psql -U postgres -W
+fi
+
+if [[ "$__ARG" == "$__START_INFLUXDB_SHELL" ]]; then
+    docker exec -it influxdb /bin/bash --login
+fi
+
+if [[ "$__ARG" == "$__START_NEO4J_SHELL" ]]; then
+    docker exec -it neo4j cypher-shell -u neo4j -p secret
+fi
+
+if [[ "$__ARG" == "$__START_REDIS_SHELL" ]]; then
+    rdb:shell": "docker exec -it redis redis-cli
+fi
+
+if [[ "$__ARG" == "$__POSTGRES_DUMP_RESTORE" ]]; then
+    docker exec -it postgres /bin/bash --login /root/.load_backups
+fi
+
+if [[ "$__ARG" == "$__INFLUXDB_DUMP_RESTORE" ]]; then
+    docker exec -it influxdb /bin/bash --login /root/.load_backups
+fi
+
+if [[ "$__ARG" == "$__NEO4J_DUMP_RESTORE" ]]; then
+    docker exec -it neo4j /bin/bash --login /root/.load_backups
+fi
+
+if [[ "$__ARG" == "$__REDIS_DUMP_RESTORE" ]]; then
+    docker exec -it redis /bin/bash --login /root/.load_backups
+fi
