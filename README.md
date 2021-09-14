@@ -1,8 +1,8 @@
 ## Database
 
-1. postgres instance.
-2. influxdb instance.
-3. neo4j instance.
+1. postgres
+2. influxdb
+3. neo4j
 4. redis
 
 ---
@@ -18,7 +18,7 @@
 
 #### On first run if dumping is needed:
 
-- Ensure dump are named `postgres.dump` `influxdb.dump` `neo4j.dump`.
+- Ensure dump are named `postgres.dump` `influxdb.dump` `neo4j.dump` `redis.dump`.
 - Place these in `./dump`. This is needed before you can run any dump commands
 
 NB dumps are not checked into remote repo.
@@ -26,16 +26,14 @@ NB dumps are not checked into remote repo.
 ```
 start your docker client
 git clone https://github.com/hiram-labs/docker-db.git
-cd database
-yarn
-yarn start
+cd docker-db
 ```
 
 #### On subsequent runs:
 
 ```
-yarn start // to start all db
-yarn stop // to stop all db
+./run start // to start all db
+./run stop // to stop all db
 ```
 
 #### Troubleshooting
@@ -56,7 +54,7 @@ docker volume rm [ id ]
 
 Adminer frontend is available for interacting with postgres
 
-`http://localhost:9001`
+`http://localhost:9000`
 
 Use the following when prompted by adminer:
 
@@ -71,7 +69,7 @@ Use the following when prompted by adminer:
 ### PSQL cli (a postgres cli tool)
 
 ```
-yarn pg:client
+./run pg:shell
 ```
 
 password: secret
@@ -87,7 +85,7 @@ Command opens up psql cli you can then run `\l` to list all available databases 
 Place the dump file inside `./dump` as mentioned before
 
 ```
-yarn pg:restore
+./run pg:restore
 ```
 
 ---
@@ -119,7 +117,7 @@ password: a-long-secret-password
 Influxdb has the cli which uses the `influx` command to manage the instance of the db. Run command below to get a shell into the container and run influx commands from there.
 
 ```
-yarn idb:client
+./run idb:shell
 ```
 
 ---
@@ -131,7 +129,7 @@ NB these may be a folder
 Place the dump file/folder inside `./dump` as mentioned before.
 
 ```
-yarn idb:restore
+./run idb:restore
 ```
 
 ---
@@ -161,7 +159,7 @@ password: secret
 ### Neo4j cli (cypher)
 
 ```
-yarn n4j:client
+./run n4j:shell
 ```
 
 ---
@@ -171,7 +169,7 @@ yarn n4j:client
 Place the dump file/folder inside `./dump` as mentioned before.
 
 ```
-yarn n4j:restore
+./run n4j:restore
 ```
 
 ---
@@ -192,7 +190,7 @@ neo4j-admin dump --database=[ database_name ] --to=/var/backups/graph.dump --ver
 Redis has the cli which uses the `redis-cli` command to manage the instance of the db. Run command below to get a shell into the container.
 
 ```
-yarn rdb:client
+./run rdb:shell
 ```
 
 ---
@@ -202,7 +200,7 @@ yarn rdb:client
 Place the dump file inside `./dump` as mentioned before.
 
 ```
-yarn rdb:restore
+./run rdb:restore
 ```
 
 ---
@@ -223,7 +221,7 @@ cp /var/lib/redis/dump.rdb /var/backups/redis.dump
 POSTGRES
 
 - address/host: 127.0.0.1
-- port: 9000
+- port: 9001
 - username: postgres
 - password: secret
 - database: hiramlabs
