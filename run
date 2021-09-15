@@ -15,6 +15,9 @@ __INFLUXDB_DUMP_RESTORE="idb:restore"
 __NEO4J_DUMP_RESTORE="n4j:restore"
 __REDIS_DUMP_RESTORE="rdb:restore"
 
+__CURRENT_UID=$(id -u):$(id -g)
+export __CURRENT_UID
+
 if [[ "$__ARG" == "$__START_DOCKER_COMPOSE" ]]; then
     shift
     docker-compose up -d "$@"
