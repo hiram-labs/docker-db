@@ -7,7 +7,7 @@ ENV DOCKER_INFLUXDB_INIT_USERNAME admin
 ENV DOCKER_INFLUXDB_INIT_PASSWORD a-long-secret-password
 ENV DOCKER_INFLUXDB_INIT_ADMIN_TOKEN a-very-long-super-secret-auth-token
 
-# sets cmds to run when influx instance is first initialise during docker compose
+# sets cmds to run when first initialised during docker compose
 RUN printf "#!/bin/bash\n\
 set -e\n\
 influx config create --config-name admin \
@@ -17,10 +17,12 @@ influx config create --config-name admin \
   --active\n" \
   >>/docker-entrypoint-initdb.d/init-instance.sh
 
-# set cmds to run on yarn restore
+# set cmds to run on restore
 RUN printf "#!/bin/bash\n\
 set +e\n\
 influx restore /var/backups/influx.dump\n\
 echo \"Finished loading influxdb backups\"\n\
 exit 0" \
   >>/root/.load_backups
+
+EXPOSE 8086
