@@ -3,7 +3,8 @@
 1. postgres
 2. influxdb
 3. neo4j
-4. redis
+4. cayley
+5. redis
 
 ---
 
@@ -114,7 +115,8 @@ password: a-long-secret-password
 
 ### Influxdb cli
 
-Influxdb has the cli which uses the `influx` command to manage the instance of the db. Run command below to get a shell into the container and run influx commands from there.
+Influxdb has the cli which uses the `influx` command to manage the instance of the db.
+Run command below to get a shell into the container and run influx commands from there.
 
 ```
 ./run idb:shell
@@ -145,7 +147,7 @@ influx backup /var/backups/analytics.dump -t [admin-token]
 
 ---
 
-### neo4j UI client
+### Neo4j UI client
 
 neo4j comes with a front end client which can be accessed at:
 
@@ -181,6 +183,44 @@ NB this replaces corresponding matches in `./dump`
 ```
 docker exec -it neo4j /bin/bash --login
 neo4j-admin dump --database=[ database_name ] --to=/var/backups/graph.dump --verbose
+```
+
+---
+
+### Cayley UI client
+
+cayley comes with a front end client which can be accessed at:
+
+`http://localhost:9005`
+
+### Cayley cli
+
+Cayley has the cli which uses the `cayley` command to manage the instance of the db.
+Run command below to get a shell into the container and run cayley commands from there.
+
+```
+./run cly:shell
+```
+
+---
+
+### Restore a cayley dump
+
+Place the dump file/folder inside `./dump` as mentioned before.
+
+```
+./run cly:restore
+```
+
+---
+
+### Dump a cayley db
+
+NB this replaces corresponding matches in `./dump`
+
+```
+docker exec -it cayley /bin/bash --login
+cayley dump -c /etc/cayley.yml -o /backups/cayley.dump
 ```
 
 ---
@@ -242,7 +282,12 @@ NEO4J
 - username: neo4j
 - password: secret
 
+CAYLEY
+
+- address/host: 127.0.0.1
+- port: 9005
+
 REDIS
 
 - address/host: 127.0.0.1
-- port: 9004
+- port: 9006

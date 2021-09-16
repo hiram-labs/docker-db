@@ -2,7 +2,7 @@ FROM postgres
 
 ENV POSTGRES_PASSWORD secret
 
-# sets cmds to run when pg instance is first initialise during docker compose
+# sets cmds to run when first initialised during docker compose
 RUN printf "#!/bin/bash\n\
 set -e\n\
 psql -v ON_ERROR_STOP=1 -U postgres -d postgres <<-EOSQL\n\
@@ -10,7 +10,7 @@ psql -v ON_ERROR_STOP=1 -U postgres -d postgres <<-EOSQL\n\
 EOSQL\n" \
     >>/docker-entrypoint-initdb.d/init-instance.sh
 
-# set cmds to run on yarn restore
+# set cmds to run on restore
 RUN printf "#!/bin/bash\n\
 set +e\n\
 pg_restore --create --clean --verbose --no-acl --no-owner -U postgres -d postgres /var/backups/postgres.dump\n\
@@ -23,3 +23,5 @@ RUN echo "\n\
 \\set PROMPT1 '%001%[%033[1;32;40m%]%002%n@%/%R%#'\
 \\set PROMPT2 '> '" \
     >>/root/.psqlrc
+
+EXPOSE 5432

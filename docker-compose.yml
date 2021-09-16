@@ -5,8 +5,8 @@ services:
     image: adminer
     container_name: adminer
     restart: unless-stopped
-#    ports:
-#      - 9000:8080
+    #    ports:
+    #      - 9000:8080
     networks:
       - database
 
@@ -17,8 +17,8 @@ services:
     image: hiramlabs/postgres
     container_name: postgres
     restart: unless-stopped
-#    ports:
-#      - 9001:5432
+    #    ports:
+    #      - 9001:5432
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./dump:/var/backups
@@ -32,8 +32,8 @@ services:
     image: hiramlabs/influxdb
     container_name: influxdb
     restart: unless-stopped
-#    ports:
-#      - 9002:8086
+    #    ports:
+    #      - 9002:8086
     volumes:
       - influx_data:/var/lib/influxdb2
       - ./dump:/var/backups
@@ -47,11 +47,26 @@ services:
     image: hiramlabs/neo4j
     container_name: neo4j
     restart: unless-stopped
-#    ports:
-#      - 9003:7687
-#      - 9004:7474
+    #    ports:
+    #      - 9003:7687
+    #      - 9004:7474
     volumes:
       - neo4j_data:/data
+      - ./dump:/backups
+    networks:
+      - database
+
+  cayley:
+    build:
+      context: ./images
+      dockerfile: cayley.dockerfile
+    image: hiramlabs/cayley
+    container_name: cayley
+    restart: unless-stopped
+    #    ports:
+    #      - 9005:64210
+    volumes:
+      - cayley_data:/data
       - ./dump:/backups
     networks:
       - database
@@ -63,8 +78,8 @@ services:
     image: hiramlabs/redis
     container_name: redis
     restart: unless-stopped
-#    ports:
-#      - 9004:6379
+    #    ports:
+    #      - 9006:6379
     volumes:
       - ./dump:/backups
     networks:
@@ -74,6 +89,7 @@ volumes:
   pg_data:
   influx_data:
   neo4j_data:
+  cayley_data:
 
 networks:
   database:
