@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 __ARG=$1
 
@@ -51,6 +51,10 @@ if [[ "$__ARG" == "$__START_REDIS_SHELL" ]]; then
     rdb:shell": "docker exec -it redis redis-cli
 fi
 
+if [[ "$__ARG" == "$__START_RABBITMQ_SHELL" ]]; then
+    docker exec -it rabbitmq /bin/sh --login
+fi
+
 # dump handlers
 if [[ "$__ARG" == "$__POSTGRES_DUMP_RESTORE" ]]; then
     docker exec -it postgres /bin/bash --login /root/.load_backups
@@ -64,10 +68,11 @@ if [[ "$__ARG" == "$__NEO4J_DUMP_RESTORE" ]]; then
     docker exec -it neo4j /bin/bash --login /root/.load_backups
 fi
 
+if [[ "$__ARG" == "$__CAYLEY_DUMP_RESTORE" ]]; then
+    docker exec -it cayley /bin/bash --login /root/.load_backups
+fi
+
 if [[ "$__ARG" == "$__REDIS_DUMP_RESTORE" ]]; then
     docker exec -it redis /bin/bash --login /root/.load_backups
 fi
 
-if [[ "$__ARG" == "$__CAYLEY_DUMP_RESTORE" ]]; then
-    docker exec -it cayley /bin/bash --login /root/.load_backups
-fi

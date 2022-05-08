@@ -85,6 +85,19 @@ services:
     networks:
       - database
 
+  rabbitmq:
+    build:
+      context: ./images
+      dockerfile: rabbitmq.dockerfile
+    image: hiramlabs/rabbitmq
+    container_name: rabbitmq
+    restart: unless-stopped
+    #    ports:
+    #      - 9007:5672
+    #      - 9008:15672
+    networks:
+      - database
+
 volumes:
   pg_data:
   influx_data:

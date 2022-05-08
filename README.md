@@ -5,6 +5,7 @@
 3. neo4j
 4. cayley
 5. redis
+6. rabbitmq
 
 ---
 
@@ -256,6 +257,17 @@ cp /var/lib/redis/dump.rdb /var/backups/redis.dump
 
 ---
 
+### Rabbitmq UI client
+
+Rabbitmq comes with a front end client which can be accessed at:
+
+`http://localhost:9008`
+
+username: guest
+password: guest
+
+---
+
 ### Credentials for local development.
 
 POSTGRES
@@ -291,3 +303,8 @@ REDIS
 
 - address/host: 127.0.0.1
 - port: 9006
+
+RABBITMQ
+
+- address/host: 127.0.0.1
+- port: 9007
