@@ -6,7 +6,7 @@ services:
     container_name: adminer
     restart: unless-stopped
     #    ports:
-    #      - 9000:8080
+    #      - 9030:8080
     networks:
       - database
 
@@ -18,7 +18,7 @@ services:
     container_name: postgres
     restart: unless-stopped
     #    ports:
-    #      - 9001:5432
+    #      - 9031:5432
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./dump:/var/backups
@@ -33,7 +33,7 @@ services:
     container_name: influxdb
     restart: unless-stopped
     #    ports:
-    #      - 9002:8086
+    #      - 9032:8086
     volumes:
       - influx_data:/var/lib/influxdb2
       - ./dump:/var/backups
@@ -48,8 +48,8 @@ services:
     container_name: neo4j
     restart: unless-stopped
     #    ports:
-    #      - 9003:7687
-    #      - 9004:7474
+    #      - 9033:7687
+    #      - 9034:7474
     volumes:
       - neo4j_data:/data
       - ./dump:/backups
@@ -64,7 +64,7 @@ services:
     container_name: cayley
     restart: unless-stopped
     #    ports:
-    #      - 9005:64210
+    #      - 9035:64210
     volumes:
       - cayley_data:/data
       - ./dump:/backups
@@ -79,7 +79,7 @@ services:
     container_name: redis
     restart: unless-stopped
     #    ports:
-    #      - 9006:6379
+    #      - 9036:6379
     volumes:
       - ./dump:/backups
     networks:
@@ -93,8 +93,8 @@ services:
     container_name: rabbitmq
     restart: unless-stopped
     #    ports:
-    #      - 9007:5672
-    #      - 9008:15672
+    #      - 9037:5672
+    #      - 9038:15672
     networks:
       - database
 
