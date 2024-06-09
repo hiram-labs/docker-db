@@ -7,6 +7,7 @@ services:
     #      - 9030:8080
     networks:
       - database
+      - interface
 
   postgres:
     build:
@@ -105,4 +106,7 @@ volumes:
 networks:
   database:
     name: database
+    external: true
+  interface:
+    name: interface
     external: true
