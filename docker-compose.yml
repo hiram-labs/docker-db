@@ -104,5 +104,5 @@ volumes:
 
 networks:
   database:
-    external:
-      name: database
+    name: database
+    external: true
