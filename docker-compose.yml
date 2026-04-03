@@ -80,6 +80,7 @@ services:
     #    ports:
     #      - 9036:6379
     volumes:
+      - redis_data:/data
       - ./dump:/backups
     networks:
       - database
@@ -102,6 +103,7 @@ volumes:
   influx_data:
   neo4j_data:
   cayley_data:
+  redis_data:
 
 networks:
   database:
